@@ -1,6 +1,8 @@
 /*
 1.Display button with the cat names
-2. list the cats in model with name, picture and text)
+2. When button is pressed display cat with name, picture and text.
+3. When cat is pressed count the clickers.
+
 3. Display the buttons in view and get the cat names from octopus which get it from model
 4. When button is pressed in view get data from octopus which communicate with model.
 5. When click interact with octopus and add number to model and display it in view
@@ -33,16 +35,21 @@ var model = {
 	Cats: [
 	{
 	name: "Ruth",
-	img: "cat_picture1.jpg"
+	img: "cat_picture1.jpg",
+	click: 0
 
 	},
 	{
 		name:"Nora",
-		img: "cat_picture2.jpeg"
+		img: "cat_picture2.jpeg",
+		click: 0
+
 	},
 	{
 		name:"Test",
-		img: "cat_picture2.jpeg"
+		img: "cat_picture3.jpeg",
+		click: 0
+
 	}
 
 ],
@@ -54,9 +61,14 @@ var model = {
 
 		}
 		return names;
-	}
+	},
+
+
 
 };
+
+
+
 
 
 var octopus = {
@@ -74,11 +86,20 @@ var view_cats = {
 	render: function() {
 	var cats = octopus.getCats()
 	for(var i = 0; i<cats.length;i++){
-	var newdiv = document.createElement("BUTTON");
-	newdiv.appendChild(document.createTextNode(cats[i]));
-	document.body.appendChild(newdiv);
+	var newbutton = document.createElement("BUTTON");
+	newbutton.id = cats[i];
+	newbutton.appendChild(document.createTextNode(cats[i]));
+	document.body.appendChild(newbutton);
+	newbutton.onclick = function(){
+		var newparagraph = document.createElement("P");
+		newparagraph.appendChild(document.createTextNode("Number of clicks"));
+		document.appendChild(newparagraph);
+	};
 
 	}
 
 }
-}
+};
+
+
+view_cats.render();
